@@ -6,7 +6,7 @@
 // Sets default values
 AMyCharacter::AMyCharacter()
 {
- 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	Health = 0;
@@ -21,7 +21,7 @@ void AMyCharacter::BeginPlay()
 }
 
 // Called every frame
-void AMyCharacter::Tick(float DeltaTime)
+void AMyCharacter::Tick(const float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
@@ -30,15 +30,17 @@ void AMyCharacter::Tick(float DeltaTime)
 // Called to bind functionality to input
 void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
+	// Switch to EnhancedInput
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 }
 
-// Implement the Attack function
+/* Implement the Attack function
 void AMyCharacter::Attack()
 {
 	
 }
+*/
 
 // Implement the Move function
 void AMyCharacter::Move(const FInputActionValue& Value)

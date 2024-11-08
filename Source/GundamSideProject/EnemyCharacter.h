@@ -6,30 +6,26 @@
 #include "MyCharacter.h"
 #include "EnemyCharacter.generated.h"
 
-/**
- * 
- */
 UCLASS()
-class GUNDAMSIDEPROJECT_API AEnemyCharacter : public AMyCharacter
+class GUNDAMSIDEPROJECT_API AEnemyCharacter : public ACharacter
 {
 	GENERATED_BODY()
 public:
 	AEnemyCharacter();
-	//virtual void AEnemyCharacter::Tick(float DeltaTime) override;
+	virtual void Tick(const float DeltaTime) override;
 	
 protected:
-	void FollowPlayer();
+	void FollowPlayer(const ACharacter* Player);
 	// void AttackPattern();
 
+	virtual void BeginPlay() override;
 	int AggressionLevel;
 	TArray<AActor*> MyActorArray; // Will Replace with Items class
 	bool bIsJumping; 
 	float JumpHoldTime; 
 	float MaxJumpHoldTime;
 	
-	virtual void Move(const FInputActionValue& Value) override;
 	virtual void Jump() override;
 	virtual void StopJumping() override;
-
-	FRotator GetCameraRotation() const;
+	
 };

@@ -18,7 +18,7 @@ public:
 	AMyCharacter();
 	
 	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	virtual void Tick(const float DeltaTime) override;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
@@ -28,7 +28,7 @@ protected:
 	virtual void BeginPlay() override;
 	int Health;
 	int Energy;
-	virtual void Attack();
+	//virtual void Attack();
 	virtual void Move(const FInputActionValue& Value);
 	virtual void Jump() override;
 	virtual void StopJumping() override;

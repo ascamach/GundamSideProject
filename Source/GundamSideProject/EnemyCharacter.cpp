@@ -2,19 +2,14 @@
 
 
 #include "EnemyCharacter.h"
+#include "AIController.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/SkeletalMeshComponent.h"
-#include "Engine/LocalPlayer.h"
-#include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
-#include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/Controller.h"
-#include "EnhancedInputComponent.h"
-#include "EnhancedInputSubsystems.h"
-#include "InputActionValue.h"
 #include "Kismet/GameplayStatics.h"
 
-AEnemyCharacter::AEnemyCharacter() : AMyCharacter()
+AEnemyCharacter::AEnemyCharacter()
 {
 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -24,8 +19,6 @@ AEnemyCharacter::AEnemyCharacter() : AMyCharacter()
 	MaxJumpHoldTime = 1.0f;
 	
 	// Default Values 
-	Health = 100;
-	Energy = 500;
 	
 	AggressionLevel = 0;
 
@@ -39,11 +32,17 @@ AEnemyCharacter::AEnemyCharacter() : AMyCharacter()
 	GetCharacterMovement()-> BrakingDecelerationFalling = 1500.0f;
 	
 }
-/*
-void AEnemyCharacter::Tick(float DeltaTime)
+void AEnemyCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+	
+}
+void AEnemyCharacter::Tick(const float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	const ACharacter* Player1 = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
 
+	FollowPlayer(Player1);
 	if (bIsJumping)
 	{
 		JumpHoldTime += DeltaTime;
@@ -56,29 +55,6 @@ void AEnemyCharacter::Tick(float DeltaTime)
 		}
 	}
 
-}
-*/
-void AEnemyCharacter::Move(const FInputActionValue& Value)
-{
-	const FVector2D MovementVector = Value.Get<FVector2D>();
-	
-	if(Controller != nullptr)
-	{
-		//UE_LOG(LogTemp, Warning, TEXT("Movement Vector: %s"), *MovementVector.ToString());
-		const FRotator CameraRotation = GetCameraRotation();
-		const FRotator YawRotation(0, CameraRotation.Yaw, 0);
-
-		// Get forward direction based on character's facing direction
-		const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
-        
-		// Get right direction based on character's facing direction
-		const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
-
-		AddMovementInput(ForwardDirection, MovementVector.Y);
-		AddMovementInput(RightDirection, MovementVector.X);
-	}
-	
-	
 }
 void AEnemyCharacter::Jump()
 {
@@ -93,18 +69,26 @@ void AEnemyCharacter::StopJumping()
 	bIsJumping = false; 
 	Super::StopJumping(); 
 }
-FRotator AEnemyCharacter::GetCameraRotation() const
+
+void AEnemyCharacter::FollowPlayer(const ACharacter* Player)
 {
-	if (APlayerController* PC = Cast<APlayerController>(GetController()))
+	if(!Player) return;
+
+	const FVector PlayerLocation = Player->GetActorLocation();
+	UE_LOG(LogTemp, Warning, TEXT("Following player to location: %s"), *PlayerLocation.ToString());
+
+	if (AAIController* AIController = Cast<AAIController>(GetController()))
 	{
-		// Return the controller's camera rotation, which could come from any camera setup
-		return PC->PlayerCameraManager->GetCameraRotation();
+		// Nav Mesh Volume is required for MoveToLocation 
+		UE_LOG(LogTemp, Warning, TEXT("AI Controller Casted Properly"));
+		AIController->MoveToLocation(PlayerLocation);
 	}
-	return FRotator::ZeroRotator;
-}
-void AEnemyCharacter::FollowPlayer()
-{
-	
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("No AI Controller found."));
+		const FVector Direction = (PlayerLocation - GetActorLocation()).GetSafeNormal();
+		AddMovementInput(Direction);
+	}
 }
 
 
