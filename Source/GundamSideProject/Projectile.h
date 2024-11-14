@@ -25,9 +25,10 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	// Components for our projectile
 	UPROPERTY(EditAnywhere)
 	class UStaticMeshComponent* projectileMesh;
 
-	UPROPERTY(EditAnywhere)
-	UProjectileMovementComponent* projectileComponent;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	class UProjectileMovementComponent* projectileComponent;
 };
