@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include "Kismet/GameplayStatics.h"
+
 #include "CoreMinimal.h"
 #include "Projectile.h"
 #include "HomingMissile.generated.h"
@@ -18,4 +20,14 @@ protected:
 	virtual void BeginPlay() override;
 
 public:
+	virtual void Tick(float DeltaTime) override;
+
+	UFUNCTION(BlueprintCallable, Category = "Missile Properties")
+		void findHomingTargets();
+
+	UFUNCTION(BlueprintCallable, Category = "Missile Properties")
+	int testFunction(int a, int b);
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		USceneComponent* HomingTargets;
 };
