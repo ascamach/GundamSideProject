@@ -13,13 +13,18 @@ AEnemySpawner::AEnemySpawner()
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	// Attach Actor Pool Component, specify as EnemyPool
+	ActorPool = CreateDefaultSubobject<UActorPool>(TEXT("EnemyPool"));
 }
 
 // Called when the game starts or when spawned
 void AEnemySpawner::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	if (Enemy)
+	{
+		ActorPool->InitializePool<AEnemyCharacter>(PoolSize, Enemy, this);
+	}
 }
 
 // Called every frame
@@ -28,18 +33,33 @@ void AEnemySpawner::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 }
+int32 AEnemySpawner::GetPoolSize() const
+{
+	return ActorPool ? ActorPool->GetPoolSize() : 0;
+}
+
 void AEnemySpawner::Spawn()
 {
-	AEnemyCharacter* AnEnemy = GetWorld()->SpawnActor<AEnemyCharacter>(Enemy, RootComponent->GetComponentLocation(), RootComponent->GetComponentRotation());\
+	AEnemyCharacter* AnEnemy = ActorPool->GetPooledActor<AEnemyCharacter>();
 	if (AnEnemy)
 	{
-		// Create or assign an AI controller to the enemy
-		AAIController* AIController = GetWorld()->SpawnActor<AAIController>(AAIController::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator);
+		// Set the enemy’s initial position and state
+		AnEnemy->SetActorLocation(GetActorLocation());
 
-		if (AIController)
+		// Check if an AI controller is already assigned
+		AAIController* AIController = Cast<AAIController>(AnEnemy->GetController());
+		if (!AIController)
 		{
-			// Possess the enemy character with the AI controller
-			AIController->Possess(AnEnemy);
+			// Spawn a new AI controller if none is assigned
+			AIController = GetWorld()->SpawnActor<AAIController>(AAIController::StaticClass());
+			if (AIController)
+			{
+				AIController->Possess(AnEnemy);
+			}
 		}
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("AEnemySpawner: Unable to spawn an enemy - pool is empty."));
 	}
 }

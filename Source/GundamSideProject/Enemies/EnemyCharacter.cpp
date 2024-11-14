@@ -37,6 +37,13 @@ void AEnemyCharacter::BeginPlay()
 void AEnemyCharacter::Tick(const float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	
+	// If hidden, skip processing
+	if (IsHidden())
+	{
+		return;
+	}
+	
 	const ACharacter* Player1 = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
 
 	FollowPlayer(Player1);

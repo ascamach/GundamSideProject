@@ -18,6 +18,9 @@ public:
 	AGundamGameMode();
 protected:
 	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaSeconds) override;
 private:
+private:
+	FTimerHandle SpawnTimerHandle;
 	UFUNCTION(BlueprintCallable) void SpawnEnemy();
 };
