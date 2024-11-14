@@ -22,12 +22,17 @@ protected:
 public:
 	virtual void Tick(float DeltaTime) override;
 
+	// Unreal Functions
 	UFUNCTION(BlueprintCallable, Category = "Missile Properties")
 		void findHomingTargets();
+	
+	UFUNCTION(BlueprintCallable, Category = "Missile Properties")
+		int testFunction(int a, int b);
 
 	UFUNCTION(BlueprintCallable, Category = "Missile Properties")
-	int testFunction(int a, int b);
+		TArray<AActor*> testFunction2();
 
+	// Unreal Properties
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		USceneComponent* HomingTargets;
 };

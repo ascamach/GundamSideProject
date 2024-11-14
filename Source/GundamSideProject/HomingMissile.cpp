@@ -27,9 +27,13 @@ void AHomingMissile::findHomingTargets()
 	// DEBUGGING PURPOSES
 	// -----------------------------------------------------
 	for (int i = 0; i != homingTargets.Num(); i++) {
+		FVector currentActorLocation = homingTargets[i]->GetActorLocation();
 		UE_LOG(LogTemp, Display, TEXT("Current index in array: %d"), (i));
 		UE_LOG(LogTemp, Display, TEXT("Current array target: %s"), (*homingTargets[i]->GetName()));
 	}
+
+	// AActor* testTarget;
+	// USceneComponent* testComponent = testTarget->GetComponentByClass<USceneComponent>();
 }
 
 void AHomingMissile::Tick(float deltaTime) 
@@ -40,6 +44,14 @@ void AHomingMissile::Tick(float deltaTime)
 int AHomingMissile::testFunction(int a, int b) 
 {
 	return a + b;
+}
+
+TArray<AActor*> AHomingMissile::testFunction2() 
+{
+	TArray<AActor*> homingTargets;
+	UGameplayStatics::GetAllActorsOfClassWithTag(GetWorld(), AActor::StaticClass(), "Enemy", homingTargets);
+
+	return homingTargets;
 }
 
 /*
