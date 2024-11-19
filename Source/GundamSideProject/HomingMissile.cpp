@@ -54,6 +54,11 @@ TArray<AActor*> AHomingMissile::testFunction2()
 	return homingTargets;
 }
 
+void AHomingMissile::testFunction3()
+{
+	return;
+}
+
 /*
 void AHomingMissile::setHomingTarget() {
 	// Set the homing target, editable in BP
