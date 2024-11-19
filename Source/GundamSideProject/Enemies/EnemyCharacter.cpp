@@ -3,7 +3,7 @@
 
 #include "EnemyCharacter.h"
 #include "AIController.h"
-#include "Components/CapsuleComponent.h"
+#include "DrawDebugHelpers.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
@@ -17,9 +17,6 @@ AEnemyCharacter::AEnemyCharacter()
 	bIsJumping = false;
 	JumpHoldTime = 0.0f;
 	MaxJumpHoldTime = 1.0f;
-	
-	// Default Values 
-	
 	AggressionLevel = 0;
 
 	// Default Movement Values, can be edited within editor
@@ -40,6 +37,13 @@ void AEnemyCharacter::BeginPlay()
 void AEnemyCharacter::Tick(const float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	
+	// If hidden, skip processing
+	if (IsHidden())
+	{
+		return;
+	}
+	
 	const ACharacter* Player1 = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
 
 	FollowPlayer(Player1);
@@ -72,16 +76,60 @@ void AEnemyCharacter::StopJumping()
 
 void AEnemyCharacter::FollowPlayer(const ACharacter* Player)
 {
+	const float Radius = 200.0f;
+	const float AngularSpeed = 50.0f;
+	const float DetectionDistance = 300.0f;
 	if(!Player) return;
 
+	
 	const FVector PlayerLocation = Player->GetActorLocation();
-	UE_LOG(LogTemp, Warning, TEXT("Following player to location: %s"), *PlayerLocation.ToString());
+
+	
+	const float DistanceBetweenActors = FVector::Distance(PlayerLocation, GetActorLocation());
 
 	if (AAIController* AIController = Cast<AAIController>(GetController()))
 	{
-		// Nav Mesh Volume is required for MoveToLocation 
-		UE_LOG(LogTemp, Warning, TEXT("AI Controller Casted Properly"));
-		AIController->MoveToLocation(PlayerLocation);
+	
+		if (DistanceBetweenActors < DetectionDistance )
+		{
+			// Draw debug circle around the player 
+			DrawDebugCircle(
+				GetWorld(),
+				PlayerLocation,
+				Radius,
+				50, // Number of segments for smoothness
+				FColor::Green,
+				false, // Persistent (false means it disappears after a few seconds)
+				-1.0f, // Lifetime (-1 means it lasts for one frame)
+				0, // Depth priority (0 is default)
+				2.0f, // Line thickness
+				FVector(1, 0, 0), // X axis
+				FVector(0, 1, 0), // Y axis
+				true // Draw a 3D circle
+			);
+			
+			// Calculate the angle change based on angular speed
+			const float AngleChange = AngularSpeed * GetWorld()->GetDeltaSeconds();
+			FVector Direction = (GetActorLocation() - PlayerLocation).GetSafeNormal();
+			
+			const FRotator Rotation = FRotator(0, AngleChange, 0);
+
+			// Rotate enemy direction around the player
+			Direction = Rotation.RotateVector(Direction);
+
+			// Set the new location along the circular path
+			const FVector NewLocation = PlayerLocation + Direction * Radius;
+			SetActorLocation(NewLocation);
+
+			// Interpolate Rotation to reduce stuttering 
+			const FRotator LookAtRotation = (PlayerLocation - GetActorLocation()).Rotation();
+			SetActorRotation(FMath::RInterpTo(GetActorRotation(), LookAtRotation, GetWorld()->GetDeltaSeconds(), 3.0f));
+		}
+		else 
+		{
+			// Move directly towards the player when out of range
+			AIController->MoveToLocation(PlayerLocation);
+		}
 	}
 	else
 	{
