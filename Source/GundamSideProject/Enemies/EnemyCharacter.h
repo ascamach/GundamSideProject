@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "MyCharacter.h"
+#include "GameFramework/Character.h"
 #include "EnemyCharacter.generated.h"
 
 UCLASS()
@@ -20,7 +20,7 @@ protected:
 
 	virtual void BeginPlay() override;
 	int AggressionLevel;
-	TArray<AActor*> MyActorArray; // Will Replace with Items class
+	//TArray<AActor*> MyActorArray; // Will Replace with Items class
 	bool bIsJumping; 
 	float JumpHoldTime; 
 	float MaxJumpHoldTime;
