@@ -57,16 +57,22 @@ TArray<AActor*> AHomingMissile::testFunction2()
 		AActor* currentEnemy = enemyTargets[i];
 
 		USceneComponent* sceneComp = Cast<USceneComponent>(currentEnemy->FindComponentByClass(USceneComponent::StaticClass()));
-		if (sceneComp->IsVisible()) {
+		if (!sceneComp->IsVisible()) {
 			homingTargets.Add(currentEnemy);
 
 			//Debugging
 			UE_LOG(LogTemp, Display, TEXT("Current index in array: %d"), (i));
-			UE_LOG(LogTemp, Display, TEXT("Adding enemy to homing targets arry"));
+			UE_LOG(LogTemp, Display, TEXT("Adding enemy to homing targets arry: %s"), (*currentEnemy->GetName()));
 		}
 	};
 
 	return homingTargets;
+}
+
+USceneComponent* AHomingMissile::testFunction4() {
+	USceneComponent* testComp = Cast<USceneComponent>(FindComponentByClass(USceneComponent::StaticClass()));
+
+	return testComp;
 }
 
 void AHomingMissile::testFunction3()
