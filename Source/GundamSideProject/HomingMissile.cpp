@@ -46,10 +46,25 @@ int AHomingMissile::testFunction(int a, int b)
 	return a + b;
 }
 
-TArray<AActor*> AHomingMissile::testFunction2() 
+TArray<AActor*> AHomingMissile::testFunction2()
 {
+	TArray<AActor*> enemyTargets;
 	TArray<AActor*> homingTargets;
-	UGameplayStatics::GetAllActorsOfClassWithTag(GetWorld(), AActor::StaticClass(), "Enemy", homingTargets);
+
+	UGameplayStatics::GetAllActorsOfClassWithTag(GetWorld(), AActor::StaticClass(), "Enemy", enemyTargets);
+
+	for (int i = 0; i != enemyTargets.Num(); i++) {
+		AActor* currentEnemy = enemyTargets[i];
+
+		USceneComponent* sceneComp = Cast<USceneComponent>(currentEnemy->FindComponentByClass(USceneComponent::StaticClass()));
+		if (sceneComp->IsVisible()) {
+			homingTargets.Add(currentEnemy);
+
+			//Debugging
+			UE_LOG(LogTemp, Display, TEXT("Current index in array: %d"), (i));
+			UE_LOG(LogTemp, Display, TEXT("Adding enemy to homing targets arry"));
+		}
+	};
 
 	return homingTargets;
 }
