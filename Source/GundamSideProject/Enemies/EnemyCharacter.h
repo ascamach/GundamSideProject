@@ -15,8 +15,10 @@ public:
 	virtual void Tick(const float DeltaTime) override;
 	
 protected:
+	FTimerHandle DamageTimerHandle;
+	
 	void FollowPlayer(const ACharacter* Player);
-	// void AttackPattern();
+	void Attack();
 
 	virtual void BeginPlay() override;
 	int AggressionLevel;

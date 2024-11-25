@@ -9,8 +9,8 @@
 TArray<AActor*> EnemySpawners;
 AGundamGameMode::AGundamGameMode()
 {
-	static ConstructorHelpers::FClassFinder<ACharacter> PlayerCharacterBP(TEXT("/Game/Blueprints/BP_Player"));
-	if (PlayerCharacterBP.Class != NULL)
+	static ConstructorHelpers::FClassFinder<ACharacter> PlayerCharacterBP(TEXT("/Game/Blueprints/BP_TestPlayer"));
+	if (PlayerCharacterBP.Succeeded())  // Use Succeeded() to check for success
 	{
 		DefaultPawnClass = PlayerCharacterBP.Class;
 	}
