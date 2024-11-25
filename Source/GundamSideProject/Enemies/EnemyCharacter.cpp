@@ -7,7 +7,9 @@
 #include "Components/SkeletalMeshComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
+#include "GundamSideProject/Player/HealthComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "TimerManager.h"
 
 AEnemyCharacter::AEnemyCharacter()
 {
@@ -124,11 +126,20 @@ void AEnemyCharacter::FollowPlayer(const ACharacter* Player)
 			// Interpolate Rotation to reduce stuttering 
 			const FRotator LookAtRotation = (PlayerLocation - GetActorLocation()).Rotation();
 			SetActorRotation(FMath::RInterpTo(GetActorRotation(), LookAtRotation, GetWorld()->GetDeltaSeconds(), 3.0f));
+
+			if (GetWorld()->GetTimerManager().IsTimerActive(DamageTimerHandle) == false)
+			{
+				// Start a timer to call ApplyDamage every 3 seconds
+				GetWorld()->GetTimerManager().SetTimer(DamageTimerHandle, this, &AEnemyCharacter::Attack, 3.0f, true);
+			}
 		}
 		else 
 		{
 			// Move directly towards the player when out of range
 			AIController->MoveToLocation(PlayerLocation);
+			
+			// Stop applying damage when out of range
+			GetWorld()->GetTimerManager().ClearTimer(DamageTimerHandle);
 		}
 	}
 	else
@@ -136,6 +147,18 @@ void AEnemyCharacter::FollowPlayer(const ACharacter* Player)
 		UE_LOG(LogTemp, Warning, TEXT("No AI Controller found."));
 		const FVector Direction = (PlayerLocation - GetActorLocation()).GetSafeNormal();
 		AddMovementInput(Direction);
+	}
+}
+void AEnemyCharacter::Attack()
+{
+	// Ensure the player is valid
+	if (ACharacter* Player = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0))
+	{
+		UHealthComponent* HealthComponent = Player->FindComponentByClass<UHealthComponent>();
+		if (HealthComponent)
+		{
+			HealthComponent->TakeDamage(10); 
+		}
 	}
 }
 
