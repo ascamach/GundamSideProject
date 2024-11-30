@@ -4,6 +4,7 @@
 
 #include "Kismet/GameplayStatics.h"
 #include "Engine/World.h"
+#include "GundamSideProject/Projectiles/HomingMissile.h"
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
@@ -13,8 +14,8 @@ UCLASS()
 class GUNDAMSIDEPROJECT_API AMissileManager : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	AMissileManager();
 
@@ -22,15 +23,28 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	/* -----------------------------------------------------
 	* Unreal Functions
 	* -----------------------------------------------------
-	*/ 
-	UFUNCTION(BlueprintCallable, Category = "Manager Functions")
+	*/
+	UFUNCTION(BlueprintCallable, Category = "Missile Manager Functions")
 		TArray<AActor*> findHomingTargets();
 
+	UFUNCTION(BlueprintCallable, Category = "Missile Manager Functions")
+		void shootMissile();
+
+	UFUNCTION(BlueprintCallable, Category = "Missile Manager Functions")
+		void testFunction();
+
+	/* -----------------------------------------------------
+	* Unreal Properties
+	* -----------------------------------------------------
+	*/
+
+	UPROPERTY(EditAnywhere, Category = "Homing Missile")
+		TSubclassOf<AActor> missileToSpawn;
 };

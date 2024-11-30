@@ -31,6 +31,6 @@ public:
 	UPROPERTY(EditAnywhere)
 		AMissileManager* missileManager;
 
-	UFUNCTION(BlueprintCallable, Category = "test")
+	UFUNCTION(BlueprintCallable, Category = "Test Functions")
 		void testFunction();
 };

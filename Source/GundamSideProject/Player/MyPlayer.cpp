@@ -15,6 +15,9 @@ AMyPlayer::AMyPlayer()
 void AMyPlayer::BeginPlay()
 {
 	Super::BeginPlay();
+	UE_LOG(LogTemp, Display, TEXT("Calling BeginPlay() from myPlayer"));
+
+	// missileManager = Cast<AMissileManager>(UGameplayStatics::GetActorOfClass(GetWorld(), AMissileManager::StaticClass()));
 }
 
 // Called every frame
@@ -32,6 +35,9 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 }
 
 void AMyPlayer::testFunction() {
-	
+	UE_LOG(LogTemp, Display, TEXT("Calling testFunction() from myPlayer"));
+	// AMissileManager* testMissileManager = NewObject<AMissileManager>();
+
+	missileManager->shootMissile();
 }
 

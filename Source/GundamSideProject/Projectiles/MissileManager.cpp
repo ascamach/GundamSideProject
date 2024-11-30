@@ -1,6 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "GundamSideProject/Projectiles/MissileManager.h"
 
 // Sets default values
@@ -15,7 +14,7 @@ AMissileManager::AMissileManager()
 void AMissileManager::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	TArray<AActor*> currentTargets;
 }
 
 // Called every frame
@@ -25,17 +24,17 @@ void AMissileManager::Tick(float DeltaTime)
 
 }
 
-TArray<AActor*> findHomingTargets() {
+TArray<AActor*> AMissileManager::findHomingTargets() {
 	TArray<AActor*> homingTargets;
 	TArray<AActor*> enemyTargets;
-
+	
 	UGameplayStatics::GetAllActorsOfClassWithTag(GetWorld(), AActor::StaticClass(), "Enemy", enemyTargets);
 
 	for (int i = 0; i != enemyTargets.Num(); i++) {
 		AActor* currentEnemy = enemyTargets[i];
 
 		USceneComponent* sceneComp = Cast<USceneComponent>(currentEnemy->FindComponentByClass(USceneComponent::StaticClass()));
-		if (!sceneComp->IsVisible()) {
+		if (sceneComp->IsVisible()) {
 			homingTargets.Add(currentEnemy);
 
 			//Debugging
@@ -45,5 +44,24 @@ TArray<AActor*> findHomingTargets() {
 	};
 
 	return homingTargets;
+}
+
+void AMissileManager::shootMissile() {
+	UE_LOG(LogTemp, Display, TEXT("Calling shootMissile() from missile manager"));
+	
+	FActorSpawnParameters spawnParams;
+
+	spawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
+	// currentTargets = findHomingTargets();
+
+	const FVector Location = GetActorLocation();
+	const FRotator Rotation = GetActorRotation();
+
+	UE_LOG(LogTemp, Display, TEXT("Calling shootMissile() from missile manager"));
+	GetWorld()->SpawnActor<AActor>(missileToSpawn, Location, Rotation, spawnParams);
+}
+
+void AMissileManager::testFunction() {
+	UE_LOG(LogTemp, Display, TEXT("Calling testFunction() from missile manager"));
 }
 
