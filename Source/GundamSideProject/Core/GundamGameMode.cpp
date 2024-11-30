@@ -6,14 +6,17 @@
 #include "UObject/ConstructorHelpers.h"
 #include "GundamSideProject/Spawners/EnemySpawner.h"
 #include "Kismet/GameplayStatics.h"
+
 TArray<AActor*> EnemySpawners;
 AGundamGameMode::AGundamGameMode()
 {
-	static ConstructorHelpers::FClassFinder<ACharacter> PlayerCharacterBP(TEXT("/Game/Blueprints/BP_TestPlayer"));
+	/*
+	static ConstructorHelpers::FClassFinder<ACharacter> PlayerCharacterBP(TEXT("/Game/Blueprints/BP_Player"));
 	if (PlayerCharacterBP.Succeeded())  // Use Succeeded() to check for success
 	{
 		DefaultPawnClass = PlayerCharacterBP.Class;
 	}
+	*/
 }
 void AGundamGameMode::BeginPlay()
 {
