@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "HomingMissile.h"
+#include "GundamSideProject/Projectiles/HomingMissile.h"
 
 void AHomingMissile::BeginPlay() 
 {

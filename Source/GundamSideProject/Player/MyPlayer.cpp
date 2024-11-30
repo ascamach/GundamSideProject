@@ -31,3 +31,7 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 }
 
+void AMyPlayer::testFunction() {
+	
+}
+

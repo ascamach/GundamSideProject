@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "GundamSideProject/Projectile.h"
+#include "GundamSideProject/Projectiles/MissileManager.h"
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
@@ -29,7 +29,8 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	UPROPERTY(EditAnywhere)
-		AProjectile* testClass;
-			
-	testClass = ObjectInitializer.CreateDefaultSuboject(this, TEXT("AProjectile"));
+		AMissileManager* missileManager;
+
+	UFUNCTION(BlueprintCallable, Category = "test")
+		void testFunction();
 };
