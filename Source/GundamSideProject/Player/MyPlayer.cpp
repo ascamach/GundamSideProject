@@ -17,7 +17,7 @@ void AMyPlayer::BeginPlay()
 	Super::BeginPlay();
 	UE_LOG(LogTemp, Display, TEXT("Calling BeginPlay() from myPlayer"));
 
-	// missileManager = Cast<AMissileManager>(UGameplayStatics::GetActorOfClass(GetWorld(), AMissileManager::StaticClass()));
+	missileManager = Cast<AMissileManager>(UGameplayStatics::GetActorOfClass(GetWorld(), AMissileManager::StaticClass()));
 }
 
 // Called every frame

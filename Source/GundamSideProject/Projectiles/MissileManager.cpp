@@ -43,22 +43,43 @@ TArray<AActor*> AMissileManager::findHomingTargets() {
 		}
 	};
 
+	UE_LOG(LogTemp, Display, TEXT("-------------------------------------------------"));
+
 	return homingTargets;
 }
 
 void AMissileManager::shootMissile() {
-	UE_LOG(LogTemp, Display, TEXT("Calling shootMissile() from missile manager"));
-	
+	// UE_LOG(LogTemp, Display, TEXT("Calling shootMissile() from missile manager"));
+
+	TArray<AActor*> targetsArray;
+	AActor* currentTarget;
+
 	FActorSpawnParameters spawnParams;
 
 	spawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
-	// currentTargets = findHomingTargets();
+
+	targetsArray = findHomingTargets();
+	currentTarget = targetsArray[0];
 
 	const FVector Location = GetActorLocation();
 	const FRotator Rotation = GetActorRotation();
 
 	UE_LOG(LogTemp, Display, TEXT("Calling shootMissile() from missile manager"));
+
+	missileToSpawn->GetDefaultObject<AHomingMissile>()->initialSpeed = 2000;
+	missileToSpawn->GetDefaultObject<AHomingMissile>()->maxSpeed = 3000;
+
 	GetWorld()->SpawnActor<AActor>(missileToSpawn, Location, Rotation, spawnParams);
+
+	UProjectileMovementComponent* currentMissileProperties = missileToSpawn->GetDefaultObject<AHomingMissile>()->projectileComponent;
+
+	currentMissileProperties->bIsHomingProjectile = true;
+	// currentMissileProperties->InitialSpeed = 2000;
+	// currentMissileProperties->MaxSpeed = 3000;
+	currentMissileProperties->HomingTargetComponent = currentTarget->GetComponentByClass<USceneComponent>();
+
+	UE_LOG(LogTemp, Display, TEXT("Current homing target: %s"), (*currentTarget->GetName()));
+	UE_LOG(LogTemp, Display, TEXT("-----------------------------------------------------------"));
 }
 
 void AMissileManager::testFunction() {

@@ -3,12 +3,21 @@
 
 #include "GundamSideProject/Projectiles/HomingMissile.h"
 
+AHomingMissile::AHomingMissile() {
+	projectileComponent->bIsHomingProjectile = false;
+	projectileComponent->InitialSpeed = 100;
+	projectileComponent->HomingAccelerationMagnitude = 100;
+	projectileComponent->MaxSpeed = 1000;
+}
+
 void AHomingMissile::BeginPlay() 
 {
 	// Make the projectile homing if not set already
-	projectileComponent->bIsHomingProjectile = false;
 
-	findHomingTargets();
+	// findHomingTargets();
+
+	projectileComponent->InitialSpeed = initialSpeed;
+	projectileComponent->MaxSpeed = maxSpeed;
 
 	Super::BeginPlay();
 }

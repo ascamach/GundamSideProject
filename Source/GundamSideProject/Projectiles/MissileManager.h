@@ -46,5 +46,5 @@ public:
 	*/
 
 	UPROPERTY(EditAnywhere, Category = "Homing Missile")
-		TSubclassOf<AActor> missileToSpawn;
+		TSubclassOf<AHomingMissile> missileToSpawn;
 };
