@@ -54,16 +54,16 @@ public:
 	
 protected:
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Health")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Health")
 	UHealthComponent* HealthComponent;
 	
-	
 	virtual void BeginPlay();
-
-	void Move(const FInputActionValue& value);
+	
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	void Move(const FInputActionValue& Value);
 	
 	void Look(const FInputActionValue& Value);
 
