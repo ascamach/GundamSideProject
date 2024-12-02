@@ -45,6 +45,6 @@ public:
 	* -----------------------------------------------------
 	*/
 
-	UPROPERTY(EditAnywhere, Category = "Homing Missile")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Homing Missile")
 		TSubclassOf<AHomingMissile> missileToSpawn;
 };

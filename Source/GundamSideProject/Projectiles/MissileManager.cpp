@@ -7,7 +7,7 @@ AMissileManager::AMissileManager()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
+	static ConstructorHelpers::FClassFinder<AHomingMissile> homingMissileBP(TEXT("/Game/Blueprints/BP_HomingMissile"));
 }
 
 // Called when the game starts or when spawned
