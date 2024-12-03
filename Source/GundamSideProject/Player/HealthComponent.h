@@ -22,16 +22,25 @@ protected:
 	virtual void BeginPlay() override;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Health")
-	int32 MaxHealth;
+	float MaxHealth;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Health")
-	int32 CurrentHealth;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Health")
+	float CurrentHealth;
 
-	void CheckDeath();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Health")
+	bool IsInvincible;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Health")
+	bool IsDead;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Health")
+	bool IsBlocking;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Health")
+	bool IsInterruptible;
+
 	
 public:
-	UFUNCTION(BlueprintCallable, Category = "Health")
-	void TakeDamage(int32 DamageAmount);
 	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
@@ -39,8 +48,40 @@ public:
 	// Event for when the character dies
 	UPROPERTY(BlueprintAssignable, Category = "Events")
 	FOnDeathSignature OnDeath;
+
+	UFUNCTION(BlueprintCallable, Category = "Health")
+	bool CheckDeath();
 	
-	int32 GetCurrentHealth() const { return CurrentHealth; }
+	UFUNCTION(BlueprintCallable, Category = "Health")
+	float GetCurrentHealth() const { return CurrentHealth; }
 	
-		
+	UFUNCTION(BlueprintCallable, Category = "Health")
+	float GetMaxHealth() {return  MaxHealth;}
+
+	UFUNCTION(BlueprintCallable, Category = "Health")
+	float Heal(float HealAmount);
+
+	UFUNCTION(BlueprintCallable, Category = "Health")
+	bool GetIsInvincible() const { return IsInvincible; }
+
+	UFUNCTION(BlueprintCallable, Category = "Health")
+	void SetIsInvincible(bool bNewIsInvincible) { IsInvincible = bNewIsInvincible; }
+
+	UFUNCTION(BlueprintCallable, Category = "Health")
+	bool GetIsDead() const { return IsDead; }
+
+	UFUNCTION(BlueprintCallable, Category = "Health")
+	void SetIsDead(bool bNewIsDead) { IsDead = bNewIsDead; }
+
+	UFUNCTION(BlueprintCallable, Category = "Health")
+	bool GetIsBlocking() const { return IsBlocking; }
+
+	UFUNCTION(BlueprintCallable, Category = "Health")
+	void SetIsBlocking(bool bNewIsBlocking) { IsBlocking = bNewIsBlocking; }
+
+	UFUNCTION(BlueprintCallable, Category = "Health")
+	bool GetIsInterruptible() const { return IsInterruptible; }
+
+	UFUNCTION(BlueprintCallable, Category = "Health")
+	void SetIsInterruptible(bool bNewIsInterruptible) { IsInterruptible = bNewIsInterruptible; }
 };
