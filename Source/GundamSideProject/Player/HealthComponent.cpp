@@ -12,20 +12,12 @@ UHealthComponent::UHealthComponent()
 
 	MaxHealth = 100;
 	CurrentHealth = MaxHealth;
-}
-void UHealthComponent::TakeDamage(int32 DamageAmount)
-{
-	if(DamageAmount <= 0)
-	{
-		return;
-	}
+	IsDead = false;
+	IsBlocking = false;
+	IsInterruptible = false;
+	IsInvincible = false;
 	
-	CurrentHealth = FMath::Clamp(CurrentHealth - DamageAmount, 0, MaxHealth);
-	
-	UE_LOG(LogTemp, Warning, TEXT("Character has taken %d damage! Current Health: %d"), DamageAmount, CurrentHealth);
-	CheckDeath();
 }
-
 
 // Called when the game starts
 void UHealthComponent::BeginPlay()
@@ -33,13 +25,27 @@ void UHealthComponent::BeginPlay()
 	Super::BeginPlay();
 	
 }
-void UHealthComponent::CheckDeath()
+bool UHealthComponent::CheckDeath()
 {
 	if (CurrentHealth <= 0)
 	{
-		OnDeath.Broadcast();		
+		IsDead = true;
+		OnDeath.Broadcast();
+		return true;
 	}
+	return false;
 }
+float UHealthComponent::Heal(float HealAmount)
+{
+	if (CurrentHealth < MaxHealth && !IsDead)
+	{
+		// Prevents Healing from surpassing MaxHealth 
+		CurrentHealth = FMath::Clamp(CurrentHealth += HealAmount, 0, MaxHealth);
+	}
+	return CurrentHealth;
+	
+}
+
 
 
 

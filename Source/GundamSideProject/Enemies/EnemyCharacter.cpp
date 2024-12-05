@@ -155,10 +155,6 @@ void AEnemyCharacter::Attack()
 	if (ACharacter* Player = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0))
 	{
 		UHealthComponent* HealthComponent = Player->FindComponentByClass<UHealthComponent>();
-		if (HealthComponent)
-		{
-			HealthComponent->TakeDamage(10); 
-		}
 	}
 }
 
