@@ -16,6 +16,9 @@ class GUNDAMSIDEPROJECT_API AHomingMissile : public AProjectile
 {
 	GENERATED_BODY()
 	
+public:
+	AHomingMissile();
+
 protected:
 	virtual void BeginPlay() override;
 
@@ -45,4 +48,10 @@ public:
 	// --------------------------------------------
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Missile Properties")
 		AActor* HomingTargets;
+
+	UPROPERTY(EditAnywhere, Category = "Missile Properties")
+		float maxSpeed;
+
+	UPROPERTY(EditAnywhere, Category = "Missile Properties")
+		float initialSpeed;
 };
