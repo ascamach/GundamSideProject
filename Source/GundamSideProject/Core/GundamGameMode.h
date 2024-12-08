@@ -20,7 +20,10 @@ protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
 private:
-private:
+
+	UPROPERTY(EditAnywhere, Category = "Camera")
+	TSubclassOf<AActor> CameraClass;
+	
 	FTimerHandle SpawnTimerHandle;
 	UFUNCTION(BlueprintCallable) void SpawnEnemy();
 };

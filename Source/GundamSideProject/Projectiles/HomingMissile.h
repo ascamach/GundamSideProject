@@ -46,12 +46,12 @@ public:
 	// --------------------------------------------
 	// Unreal Properties
 	// --------------------------------------------
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Missile Properties")
-		AActor* HomingTargets;
-
 	UPROPERTY(EditAnywhere, Category = "Missile Properties")
 		float maxSpeed;
 
 	UPROPERTY(EditAnywhere, Category = "Missile Properties")
 		float initialSpeed;
+
+	UPROPERTY(EditAnywhere, Category = "Missile Properties")
+		float magnitude;
 };
