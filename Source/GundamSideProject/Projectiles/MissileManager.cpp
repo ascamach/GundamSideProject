@@ -61,6 +61,11 @@ void AMissileManager::shootMissile() {
 	spawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
 
 	targetsArray = findHomingTargets();
+
+	if (targetsArray.IsEmpty()) {
+		return;
+	}
+
 	currentTarget = targetsArray[0];
 
 	const FVector Location = GetActorLocation();
