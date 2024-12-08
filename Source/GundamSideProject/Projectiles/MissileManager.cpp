@@ -2,6 +2,8 @@
 
 #include "GundamSideProject/Projectiles/MissileManager.h"
 
+#include "UObject/ConstructorHelpers.h"
+
 // Sets default values
 AMissileManager::AMissileManager()
 {
