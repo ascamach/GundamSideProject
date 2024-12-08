@@ -9,6 +9,11 @@ AMyPlayer::AMyPlayer()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	bIsJumping = false;
+	JumpHoldTime = 0.0f;
+	MaxJumpHoldTime = 1.0f;
+
+	
 }
 
 // Called when the game starts or when spawned

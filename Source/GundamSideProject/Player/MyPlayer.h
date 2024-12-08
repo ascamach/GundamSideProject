@@ -21,6 +21,15 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Jumping")
+	bool bIsJumping;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Jumping")
+	float JumpHoldTime;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Jumping")
+	float MaxJumpHoldTime;
+	
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -33,4 +42,5 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Test Functions")
 		void testFunction();
+	
 };
