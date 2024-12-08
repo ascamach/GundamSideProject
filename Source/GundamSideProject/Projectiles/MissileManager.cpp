@@ -73,8 +73,9 @@ void AMissileManager::shootMissile() {
 
 	UE_LOG(LogTemp, Display, TEXT("Calling shootMissile() from missile manager"));
 
-	missileToSpawn->GetDefaultObject<AHomingMissile>()->initialSpeed = 2000;
-	missileToSpawn->GetDefaultObject<AHomingMissile>()->maxSpeed = 3000;
+	missileToSpawn->GetDefaultObject<AHomingMissile>()->initialSpeed = 10;
+	missileToSpawn->GetDefaultObject<AHomingMissile>()->maxSpeed = 0;
+	// missileToSpawn->GetDefaultObject<AHomingMissile>()->magnitude = 30;
 
 	GetWorld()->SpawnActor<AActor>(missileToSpawn, Location, Rotation, spawnParams);
 
