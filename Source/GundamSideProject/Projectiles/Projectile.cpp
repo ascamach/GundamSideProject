@@ -10,11 +10,12 @@ AProjectile::AProjectile()
 	PrimaryActorTick.bCanEverTick = false;
 
 	// Set projectile mesh component
-	projectileMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Projectile Mesh"));
-	RootComponent = projectileMesh;
+	projectileMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Projectile Mesh"));
+	// RootComponent = projectileMesh;
 
 	// Set Projectile Component for class
 	projectileComponent = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("Projectile Component"));
+	projectileComponent->bRotationFollowsVelocity = true;
 }
 
 // Called when the game starts or when spawned

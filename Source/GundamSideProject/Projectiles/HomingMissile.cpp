@@ -6,8 +6,12 @@
 AHomingMissile::AHomingMissile() {
 	projectileComponent->bIsHomingProjectile = false;
 	projectileComponent->InitialSpeed = 100;
-	projectileComponent->HomingAccelerationMagnitude = 100;
+	projectileComponent->HomingAccelerationMagnitude = 3000;
 	projectileComponent->MaxSpeed = 1000;
+
+	initialSpeed = 100;
+	maxSpeed = 1000;
+	// magnitude = 100;
 }
 
 void AHomingMissile::BeginPlay() 
@@ -18,6 +22,7 @@ void AHomingMissile::BeginPlay()
 
 	projectileComponent->InitialSpeed = initialSpeed;
 	projectileComponent->MaxSpeed = maxSpeed;
+	// projectileComponent->HomingAccelerationMagnitude = magnitude;
 
 	Super::BeginPlay();
 }

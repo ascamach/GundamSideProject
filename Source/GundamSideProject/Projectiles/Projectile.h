@@ -27,8 +27,8 @@ public:
 
 	// Components for our projectile
 	UPROPERTY(EditAnywhere)
-	class UStaticMeshComponent* projectileMesh;
+		class USkeletalMeshComponent* projectileMesh;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	class UProjectileMovementComponent* projectileComponent;
+		class UProjectileMovementComponent* projectileComponent;
 };
