@@ -38,7 +38,7 @@ void AGundamGameMode::BeginPlay()
 			{
 				FViewTargetTransitionParams TransitionParams;
 				TransitionParams.BlendTime = 0.0f; // Instant transition
-				//PlayerController->SetViewTarget(CameraActor, TransitionParams);
+				PlayerController->SetViewTarget(CameraActor, TransitionParams);
 			}
 		}
 	}
