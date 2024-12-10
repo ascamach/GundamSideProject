@@ -18,7 +18,7 @@ AArenaCamera::AArenaCamera()
 
 	// Set the desired arm length and angle for a top-down view
 	SpringArm->TargetArmLength = 800.0f;
-	SpringArm->SetRelativeRotation(FRotator(-40.0f, 0.0f, 0.0f)); // Tilt downward for top-down angle
+	SpringArm->SetRelativeRotation(FRotator(-75.0f, 0.0f, 0.0f)); // Tilt downward for top-down angle
 	SpringArm->bDoCollisionTest = false; 
 	SpringArm->bEnableCameraLag = true; 
 	SpringArm->CameraLagSpeed = 3.0f;
@@ -60,7 +60,7 @@ void AArenaCamera::BeginPlay()
 {
 	Super::BeginPlay();
 
-	SetActorLocation(FVector(0.0f, 0.0f, 1000.0f));
+	SetActorLocation(FVector(0.0f, 0.0f, 1200.0f));
 }
 void AArenaCamera::TrackPlayers(const ACharacter* Player1, const ACharacter* Player2, float DeltaTime)
 {

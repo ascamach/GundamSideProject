@@ -41,6 +41,6 @@ public:
 		AMissileManager* missileManager;
 
 	UFUNCTION(BlueprintCallable, Category = "Test Functions")
-		void testFunction();
+		void ShootMissile();
 	
 };

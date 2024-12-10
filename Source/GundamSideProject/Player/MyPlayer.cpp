@@ -39,7 +39,7 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 }
 
-void AMyPlayer::testFunction() {
+void AMyPlayer::ShootMissile() {
 	UE_LOG(LogTemp, Display, TEXT("Calling testFunction() from myPlayer"));
 	// AMissileManager* testMissileManager = NewObject<AMissileManager>();
 
