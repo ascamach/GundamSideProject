@@ -15,6 +15,7 @@ class GUNDAMSIDEPROJECT_API AProjectile : public AActor
 	
 public:	
 	// Sets default values for this actor's properties
+	// Default parent class for all projectile related actors
 	AProjectile();
 
 protected:
@@ -31,6 +32,11 @@ public:
 		class UStaticMeshComponent* projectileMesh;
 		*/
 
+
+	/* -----------------------------------------------------
+	* Unreal Properties
+	* -----------------------------------------------------
+	*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		class UProjectileMovementComponent* projectileComponent;
 };

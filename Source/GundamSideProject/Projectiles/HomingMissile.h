@@ -31,6 +31,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Missile Properties")
 		void findHomingTargets();
 	
+	/*
 	UFUNCTION(BlueprintCallable, Category = "Missile Properties")
 		int testFunction(int a, int b);
 
@@ -42,6 +43,7 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Missile Properties")
 		USceneComponent* testFunction4();
+	*/
 
 	// --------------------------------------------
 	// Unreal Properties

@@ -37,10 +37,19 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+
+	/* -----------------------------------------------------
+	* Unreal Properties
+	* -----------------------------------------------------
+	*/
 	UPROPERTY(EditAnywhere)
 		AMissileManager* missileManager;
 
+	/* -----------------------------------------------------
+	* Unreal Functions
+	* -----------------------------------------------------
+	*/
 	UFUNCTION(BlueprintCallable, Category = "Test Functions")
-		void testFunction();
+		void shootMissiles();
 	
 };

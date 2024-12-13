@@ -37,8 +37,10 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Missile Manager Functions")
 		void shootMissile();
 
+	/*
 	UFUNCTION(BlueprintCallable, Category = "Missile Manager Functions")
 		void testFunction();
+	*/
 
 	/* -----------------------------------------------------
 	* Unreal Properties
