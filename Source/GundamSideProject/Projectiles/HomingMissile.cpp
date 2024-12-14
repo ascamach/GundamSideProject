@@ -60,6 +60,7 @@ int AHomingMissile::testFunction(int a, int b)
 	return a + b;
 }
 
+/*
 TArray<AActor*> AHomingMissile::testFunction2()
 {
 	TArray<AActor*> enemyTargets;
@@ -82,7 +83,9 @@ TArray<AActor*> AHomingMissile::testFunction2()
 
 	return homingTargets;
 }
+*/
 
+/*
 USceneComponent* AHomingMissile::testFunction4() {
 	USceneComponent* testComp = Cast<USceneComponent>(FindComponentByClass(USceneComponent::StaticClass()));
 
@@ -94,7 +97,6 @@ void AHomingMissile::testFunction3()
 	return;
 }
 
-/*
 void AHomingMissile::setHomingTarget() {
 	// Set the homing target, editable in BP
 }

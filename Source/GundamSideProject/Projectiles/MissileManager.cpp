@@ -53,26 +53,35 @@ TArray<AActor*> AMissileManager::findHomingTargets() {
 void AMissileManager::shootMissile() {
 	// UE_LOG(LogTemp, Display, TEXT("Calling shootMissile() from missile manager"));
 
+	// Variables for our function.
+	/* targetsArray is the array of all enemies in the scene
+	* currentTarget is our current placement in the array
+	*/
 	TArray<AActor*> targetsArray;
 	AActor* currentTarget;
 
+	// Set spawn parameters for missile spawn
 	FActorSpawnParameters spawnParams;
 
 	spawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
 
+	// Set targetsArray to our findHomingTargets return
 	targetsArray = findHomingTargets();
 
 	if (targetsArray.IsEmpty()) {
 		return;
 	}
 
+	// For now, our current target is the first index of targetsArray
 	currentTarget = targetsArray[0];
 
+	// Set spawn location and rotation
 	const FVector Location = GetActorLocation();
 	const FRotator Rotation = GetActorRotation();
 
 	UE_LOG(LogTemp, Display, TEXT("Calling shootMissile() from missile manager"));
 
+	// Set missile properties BEFORE spawning
 	missileToSpawn->GetDefaultObject<AHomingMissile>()->initialSpeed = 10;
 	missileToSpawn->GetDefaultObject<AHomingMissile>()->maxSpeed = 0;
 	// missileToSpawn->GetDefaultObject<AHomingMissile>()->magnitude = 30;
@@ -88,9 +97,5 @@ void AMissileManager::shootMissile() {
 
 	UE_LOG(LogTemp, Display, TEXT("Current homing target: %s"), (*currentTarget->GetName()));
 	UE_LOG(LogTemp, Display, TEXT("-----------------------------------------------------------"));
-}
-
-void AMissileManager::testFunction() {
-	UE_LOG(LogTemp, Display, TEXT("Calling testFunction() from missile manager"));
 }
 

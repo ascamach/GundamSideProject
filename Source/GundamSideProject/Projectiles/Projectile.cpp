@@ -10,6 +10,7 @@ AProjectile::AProjectile()
 	PrimaryActorTick.bCanEverTick = false;
 
 	// Set projectile mesh component
+	// No longer want to do this, as our root component should not be created for collision purposes
 	// projectileMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Projectile Mesh"));
 	// RootComponent = projectileMesh;
 

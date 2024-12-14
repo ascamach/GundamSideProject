@@ -9,6 +9,7 @@ AMyPlayer::AMyPlayer()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	// Set default values
 	bIsJumping = false;
 	JumpHoldTime = 0.0f;
 	MaxJumpHoldTime = 1.0f;
@@ -22,6 +23,7 @@ void AMyPlayer::BeginPlay()
 	Super::BeginPlay();
 	UE_LOG(LogTemp, Display, TEXT("Calling BeginPlay() from myPlayer"));
 
+	// Set missile manager variable to existing missile manager in scene
 	missileManager = Cast<AMissileManager>(UGameplayStatics::GetActorOfClass(GetWorld(), AMissileManager::StaticClass()));
 }
 
@@ -43,6 +45,8 @@ void AMyPlayer::ShootMissile() {
 	UE_LOG(LogTemp, Display, TEXT("Calling testFunction() from myPlayer"));
 	// AMissileManager* testMissileManager = NewObject<AMissileManager>();
 
+	// Call shoot missile from missile manager
+	// Will add aiming/targeting functionality
 	missileManager->shootMissile();
 }
 
