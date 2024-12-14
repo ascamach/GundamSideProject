@@ -50,6 +50,7 @@ public:
 	* -----------------------------------------------------
 	*/
 	UFUNCTION(BlueprintCallable, Category = "Test Functions")
-		void shootMissiles();
+	void ShootMissile();
+
 	
 };
