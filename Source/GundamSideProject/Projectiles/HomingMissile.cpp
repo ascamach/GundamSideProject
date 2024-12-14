@@ -55,12 +55,13 @@ void AHomingMissile::Tick(float deltaTime)
 	Super::Tick(deltaTime);
 }
 
+/*
 int AHomingMissile::testFunction(int a, int b) 
 {
 	return a + b;
 }
 
-/*
+
 TArray<AActor*> AHomingMissile::testFunction2()
 {
 	TArray<AActor*> enemyTargets;
